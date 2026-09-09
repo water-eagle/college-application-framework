@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BootjspApplication<bootjsp>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "kr.ac.shingu.appfrm.BootjspApplication",
+            "projectName": "bootjsp",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
