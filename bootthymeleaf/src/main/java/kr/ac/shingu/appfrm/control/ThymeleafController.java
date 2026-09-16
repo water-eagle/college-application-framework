@@ -29,6 +29,8 @@ public class ThymeleafController {
         prods.add(prod2);
 
         model.addAttribute("prods", prods);
+        model.addAttribute("isLogin", true);
+        model.addAttribute("userName", "홍길동");
         return "example/example";
     }
 }

@@ -7,6 +7,10 @@
 </head>
 
 <body>
+    <ul>
+        <li th:if="${isLogin}" th:text="${userName} + '님 반갑습니다.'" ></li>
+        <li th:unless="${isLogin}" th:text="로그인해주세요."></li>
+    </ul>
     <table>
         <tr>
             <th>NAME</th>
