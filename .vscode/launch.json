@@ -9,6 +9,16 @@
             "projectName": "bootjsp",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BootthymeleafApplication<bootthymeleaf>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "kr.ac.shingu.appfrm.BootthymeleafApplication",
+            "projectName": "bootthymeleaf",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
