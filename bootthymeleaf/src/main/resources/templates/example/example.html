@@ -7,22 +7,12 @@
 </head>
 
 <body>
+    <div th:insert="~{example/example_fragment :: head}"></div>
     <ul>
-        <li th:if="${isLogin}" th:text="${userName} + '님 반갑습니다.'" ></li>
+        <li th:if="${isLogin}" th:text="${userName} + '님 반갑습니다.'"></li>
         <li th:unless="${isLogin}" th:text="로그인해주세요."></li>
     </ul>
-    <table>
-        <tr>
-            <th>NAME</th>
-            <th>PRICE</th>
-            <th>IN STOCK</th>
-        </tr>
-        <tr th:each="prod : ${prods}">
-            <td th:text="${prod.name}">Onions</td>
-            <td th:text="${prod.price}">2.41</td>
-            <td th:text="${prod.inStock}">yes</td>
-        </tr>
-    </table>
+    <div th:replace="~{example/example_fragment :: footer}"></div>
 </body>
 
 </html>
