@@ -1,14 +1,34 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <title>Hello</title>
+    <title>Open Chatting</title>
+    <script th:inline="javascript">
+        function addMessage(msg) {
+            var textarea = document.getElementById("console");
+            textarea.value = textarea.value + "\n" + msg;
+            textarea.scrollTop = textarea.scrollHeight; // scroll down
+        }
+        var socket;
+        function doOnload() {
+            socket = new WebSocket("ws://localhost:8888/chat/ws");
+            socket.onopen = function (evt) {
+                socket.send("Welcome Message 안녕 나는 " + [[${ nickname }]] + "이야!");
+            }
+        }
+    </script>
 </head>
 
-<body>
+<body onload="doOnload();">
     <h1 th:text="'Hello ' + ${nickname} + '!'"></h1>
+    <table>
+        <tr>
+            <td><textarea id="console" rows="20"></textarea></td>
+        </tr>
+    </table>
+    <input type="text" name="msg" id="msg" value="">
+    <input type="button" value="Send">
 </body>
 
 </html>
