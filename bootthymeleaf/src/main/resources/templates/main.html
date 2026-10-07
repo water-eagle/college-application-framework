@@ -14,9 +14,21 @@
         function doOnload() {
             socket = new WebSocket("ws://localhost:8888/chat/ws");
             socket.onopen = function (evt) {
-                socket.send("Welcome Message 안녕 나는 " + [[${ nickname }]] + "이야!");
+                var req = { "cmd": "poll", "nickname" : [[${ nickname }]] };
+                socket.send(JSON.stringify(req));
             }
-        }
+            socket.onmessage = function (evt) {
+                var chatmsg = JSON.parse(evt.data);
+                var cmd = chatmsg["cmd"];
+                var nickname = chatmsg["nickname"];
+                var msg = chatmsg["msg"];
+                addMessage = chatmsg("[" + nickname + "]");
+            }
+            function sendMesaage() {
+                var ksg = document.getElementById("msg").value;
+                socket.send(JSON.stringify({ "cmd": "push", "nickname": [[${nickname}]], "msg": msg }))
+            }
+        }   
     </script>
 </head>
 
