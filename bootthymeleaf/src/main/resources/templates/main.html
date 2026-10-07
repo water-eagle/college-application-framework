@@ -14,7 +14,7 @@
         function doOnload() {
             socket = new WebSocket("ws://localhost:8888/chat/ws");
             socket.onopen = function (evt) {
-                var req = { "cmd": "poll", "nickname" : [[${ nickname }]] };
+                var req = { "cmd": "poll", "nickname": [[${ nickname }]] };
                 socket.send(JSON.stringify(req));
             }
             socket.onmessage = function (evt) {
@@ -26,7 +26,7 @@
             }
             function sendMesaage() {
                 var ksg = document.getElementById("msg").value;
-                socket.send(JSON.stringify({ "cmd": "push", "nickname": [[${nickname}]], "msg": msg }))
+                socket.send(JSON.stringify({ "cmd": "push", "nickname": [[${ nickname }]], "msg": msg }))
             }
         }   
     </script>
