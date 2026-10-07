@@ -39,7 +39,7 @@ public class ChatService {
         obj.put("nickname", nickname);
         obj.put("msg", msg);
 
-        TextMessage message = new TextMessage((obj.toJSONString()));
+        TextMessage message = new TextMessage(obj.toJSONString());
 
         Set<Entry<String, WebSocketSession>> entrySet = this.users.entrySet();
         for (Entry<String, WebSocketSession> entry : entrySet) {

@@ -25,10 +25,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
 
-        this.log.debug("recevied message: " + payload);
-
         JSONParser parser = new JSONParser(JSONParser.MODE_PERMISSIVE);
         JSONObject jsonObject = (JSONObject) parser.parse(payload);
+
         String cmd = jsonObject.getAsString("cmd");
         String nickname = jsonObject.getAsString("nickname");
         switch (cmd) {
@@ -43,8 +42,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 this.chatService.addMessage(nickname, msg);
                 break;
             }
-            default:
-                break;
         }
     }
 
