@@ -1,9 +1,11 @@
 package kr.ac.shingu.appfrm.control;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,5 +53,11 @@ public class LoginRestController {
         session.setAttribute("userId", userId);
 
         return new ResponseData(true, "로그인 되었습니다.");
+    }
+
+    @GetMapping("/all-user")
+    public List<ChatUser> getAllUser() {
+        List<ChatUser> chatUserlist = this.chatUserRepository.findAllChatUser();
+        return chatUserlist;
     }
 }
