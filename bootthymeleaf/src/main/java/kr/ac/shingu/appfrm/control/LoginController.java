@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kr.ac.shingu.appfrm.repository.ChatUser;
 import kr.ac.shingu.appfrm.repository.ChatUserRepository;
+import kr.ac.shingu.appfrm.service.ChatService;
 
 @Controller
 @RequestMapping("/")
@@ -39,9 +40,11 @@ public class LoginController {
     // }
 
     private final ChatUserRepository chatUserRepository;
+    public final ChatService chatService;
 
-    public LoginController(ChatUserRepository chatUserRepository) {
+    public LoginController(ChatUserRepository chatUserRepository, ChatService chatService) {
         this.chatUserRepository = chatUserRepository;
+        this.chatService = chatService;
     }
 
     @GetMapping("")
@@ -57,6 +60,12 @@ public class LoginController {
         ChatUser chatUser = chatUserOpt.get();
         String nickname = chatUser.getNickname();
         model.addAttribute("nickname", nickname);
+
+        // chat message
+        String prevMsg = this.chatService.loadAllChatMsg();
+        this.log.debug("prevMsg: ", prevMsg);
+        model.addAttribute("prevMsg", prevMsg);
+
         return "main";
     }
 

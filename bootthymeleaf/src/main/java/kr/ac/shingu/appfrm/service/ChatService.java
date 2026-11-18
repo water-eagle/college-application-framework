@@ -9,6 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -63,5 +65,16 @@ public class ChatService {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String loadAllChatMsg() {
+        Iterable<ChatMsg> msgList = this.chatMsgRepository.findAll(
+                Sort.by(Direction.ASC, "chatCreTime"));
+        StringBuilder msg = new StringBuilder();
+        for (ChatMsg chatMsg : msgList) {
+            msg.append("[").append(chatMsg.getNickname())
+                    .append("] ").append(chatMsg.getChatContent()).append("\n");
+        }
+        return msg.toString().trim();
     }
 }
