@@ -1,6 +1,7 @@
 package kr.ac.shingu.appfrm.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -12,14 +13,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import kr.ac.shingu.appfrm.repository.ChatMsg;
+import kr.ac.shingu.appfrm.repository.ChatMsgRepository;
 import net.minidev.json.JSONObject;
 
 @Service
 public class ChatService {
     private final Logger log = LoggerFactory.getLogger(ChatService.class);
     private final Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
+    private final ChatMsgRepository chatMsgRepository;
 
-    public ChatService() {
+    public ChatService(ChatMsgRepository chatMsgRepository) {
+        this.chatMsgRepository = chatMsgRepository;
     }
 
     public void addUser(String nickname, WebSocketSession session) {
@@ -34,6 +39,13 @@ public class ChatService {
     }
 
     public void addMessage(String nickname, String msg) {
+        // chat msg save begin
+        ChatMsg chatMsg = new ChatMsg();
+        chatMsg.setNickname(nickname);
+        chatMsg.setChatContent(msg);
+        chatMsg.setChatCreTime(LocalDateTime.now());
+        this.chatMsgRepository.save(chatMsg);
+
         JSONObject obj = new JSONObject();
         obj.put("cmd", "msg");
         obj.put("nickname", nickname);
